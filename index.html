@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>🎬 Assista como Netflix, maratone sem limites e pague apenas R$ 1,90</title>
     
-    <!-- Scripts de Terceiros (Pixels) -->
+    <!-- Scripts de Rastreamento (Obrigatórios) -->
     <script>
       window.pixelId = "6987ce77d3cf4a0eda7109c1";
       var a = document.createElement("script");
@@ -30,27 +30,44 @@
     fbq('track', 'PageView');
     </script>
 
-    <!-- Tailwind CSS -->
+    <!-- Tailwind & Fonts -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
 
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #0a0a0a; color: white; margin: 0; }
+        #root:empty {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: #0a0a0a;
+        }
+        #root:empty::after {
+            content: "";
+            width: 40px;
+            height: 40px;
+            border: 4px solid rgba(229, 9, 20, 0.2);
+            border-top-color: #E50914;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        
         @keyframes pulse-soft { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.03); } }
         .animate-pulse-soft { animation: pulse-soft 2s infinite ease-in-out; }
         @keyframes slide-in-right { from { transform: translateX(100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
         .animate-slide-in-right { animation: slide-in-right 0.5s ease-out forwards; }
         @keyframes scale-up { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         .animate-scale-up { animation: scale-up 0.3s ease-out forwards; }
-        @keyframes shine { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
-        .animate-shine { animation: shine 2s infinite; }
+        
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #141414; }
         ::-webkit-scrollbar-thumb { background: #E50914; border-radius: 4px; }
     </style>
 
-    <!-- Configuração de Módulos (Importmap) - Essencial para o React 19 -->
+    <!-- Importmap para React 19 (Obrigatório para arquivos .tsx funcionarem via ESM) -->
     <script type="importmap">
 {
   "imports": {
@@ -64,9 +81,11 @@
 </script>
 </head>
 <body>
-    <!-- Fallback do Facebook Pixel (Movido para o Body para evitar erro de build) -->
     <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1259128509401539&ev=PageView&noscript=1"/></noscript>
     
     <div id="root"></div>
+
+    <!-- PONTO DE ENTRADA DO JAVASCRIPT -->
+    <script type="module" src="./index.tsx"></script>
 </body>
 </html>

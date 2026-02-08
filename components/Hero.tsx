@@ -7,7 +7,6 @@ const Hero: React.FC = () => {
   const [isMuted, setIsMuted] = useState(true);
   const [isLoading, setIsLoading] = useState(true);
 
-  // 💡 URL DO DROPBOX
   const videoUrl = "https://www.dropbox.com/scl/fi/0h3i6zjscctm2z51m4zme/netlixvideo.mp4?rlkey=llxgf0znoxfvsz53an0fpt9o1&st=0haqt1ld&dl=1";
 
   useEffect(() => {
@@ -18,8 +17,8 @@ const Hero: React.FC = () => {
           await videoRef.current.play();
           setIsPlaying(true);
         } catch (error) {
-          // Silently fail if autoplay is blocked
           setIsPlaying(false);
+          setIsLoading(false);
         }
       }
     };
@@ -30,8 +29,7 @@ const Hero: React.FC = () => {
     if (e) e.stopPropagation();
     if (!videoRef.current) return;
     if (videoRef.current.paused) {
-      videoRef.current.play();
-      setIsPlaying(true);
+      videoRef.current.play().then(() => setIsPlaying(true)).catch(() => {});
     } else {
       videoRef.current.pause();
       setIsPlaying(false);
@@ -44,22 +42,19 @@ const Hero: React.FC = () => {
       videoRef.current.muted = !videoRef.current.muted;
       setIsMuted(videoRef.current.muted);
       if (videoRef.current.paused) {
-        videoRef.current.play();
-        setIsPlaying(true);
+        videoRef.current.play().then(() => setIsPlaying(true));
       }
     }
   };
 
   const handleVideoEnd = () => {
     setIsPlaying(false);
-    // Aguarda 7 segundos antes de dar o play novamente
     setTimeout(() => {
       if (videoRef.current) {
         videoRef.current.currentTime = 0;
-        videoRef.current.play();
-        setIsPlaying(true);
+        videoRef.current.play().then(() => setIsPlaying(true));
       }
-    }, 7000);
+    }, 5000);
   };
 
   const scrollToPlans = (e: React.MouseEvent) => {
@@ -70,7 +65,6 @@ const Hero: React.FC = () => {
 
   return (
     <section className="relative py-16 px-4 bg-[#0a0a0a] overflow-hidden">
-      {/* Ambient Glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[600px] pointer-events-none opacity-40">
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-[#E50914] blur-[140px] rounded-full"></div>
       </div>
@@ -90,7 +84,6 @@ const Hero: React.FC = () => {
           Esqueça as mensalidades caras. A mesma experiência Premium por um preço que você não vai acreditar.
         </p>
 
-        {/* Video Player Section */}
         <div className="max-w-[300px] sm:max-w-[340px] mx-auto mb-16 relative group">
           <div className="absolute -inset-4 bg-[#E50914]/20 blur-3xl rounded-[3rem] opacity-30 group-hover:opacity-60 transition-opacity duration-1000"></div>
           
@@ -103,6 +96,7 @@ const Hero: React.FC = () => {
               preload="auto"
               onLoadStart={() => setIsLoading(true)}
               onCanPlay={() => setIsLoading(false)}
+              onError={() => setIsLoading(false)}
               onClick={(e) => handleTogglePlay(e)}
               onEnded={handleVideoEnd}
             >
@@ -137,13 +131,12 @@ const Hero: React.FC = () => {
           </div>
         </div>
 
-        {/* Primary CTA */}
         <div className="flex flex-col items-center gap-8">
           <div 
             role="button"
             tabIndex={0}
             onClick={scrollToPlans}
-            className="w-full max-w-md bg-[#E50914] text-white px-10 py-7 rounded-[2rem] text-2xl font-[900] uppercase tracking-tighter transition-all transform hover:-translate-y-1.5 active:scale-95 shadow-[0_25px_50px_-12px_rgba(229,9,20,0.4)] animate-pulse-soft flex items-center justify-center gap-4 cursor-pointer"
+            className="w-full max-w-md bg-[#E50914] text-white px-10 py-7 rounded-[2rem] text-2xl font-[900] uppercase tracking-tighter text-center shadow-[0_25px_50px_-12px_rgba(229,9,20,0.4)] animate-pulse-soft flex items-center justify-center gap-4 cursor-pointer"
           >
             🔥 QUERO MEU ACESSO AGORA
           </div>

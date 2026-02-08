@@ -1,5 +1,5 @@
 
-import { Plan, Testimonial, Notification } from './types';
+import { Plan, Testimonial, Notification } from './types.ts';
 
 export const PLANS: Plan[] = [
   {

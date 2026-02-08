@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { PLANS } from '../constants';
+import { PLANS } from '../constants.ts';
 
 interface PricingProps {
   onShowPopup: () => void;

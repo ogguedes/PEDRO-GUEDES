@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react';
-import { NOTIFICATION_MESSAGES } from '../constants';
-import { Notification } from '../types';
+import { NOTIFICATION_MESSAGES } from '../constants.ts';
+import { Notification } from '../types.ts';
 
 const NotificationSystem: React.FC = () => {
   const [activeNotification, setActiveNotification] = useState<Notification | null>(null);

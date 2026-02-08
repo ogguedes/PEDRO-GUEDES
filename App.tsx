@@ -1,12 +1,12 @@
 
 import React, { useState, useEffect } from 'react';
-import Hero from './components/Hero';
-import Benefits from './components/Benefits';
-import Pricing from './components/Pricing';
-import Testimonials from './components/Testimonials';
-import Footer from './components/Footer';
-import UpgradePopup from './components/UpgradePopup';
-import NotificationSystem from './components/NotificationSystem';
+import Hero from './components/Hero.tsx';
+import Benefits from './components/Benefits.tsx';
+import Pricing from './components/Pricing.tsx';
+import Testimonials from './components/Testimonials.tsx';
+import Footer from './components/Footer.tsx';
+import UpgradePopup from './components/UpgradePopup.tsx';
+import NotificationSystem from './components/NotificationSystem.tsx';
 
 const App: React.FC = () => {
   const [showPopup, setShowPopup] = useState(false);

@@ -29,7 +29,6 @@
     fbq('init', '1259128509401539');
     fbq('track', 'PageView');
     </script>
-    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1259128509401539&ev=PageView&noscript=1"/></noscript>
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -65,6 +64,9 @@
 </script>
 </head>
 <body>
+    <!-- Fallback do Facebook Pixel (Movido para o Body para evitar erro de build) -->
+    <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1259128509401539&ev=PageView&noscript=1"/></noscript>
+    
     <div id="root"></div>
 </body>
 </html>
